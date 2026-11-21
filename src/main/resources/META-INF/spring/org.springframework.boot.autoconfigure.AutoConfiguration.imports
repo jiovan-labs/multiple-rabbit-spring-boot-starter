@@ -1,11 +1,11 @@
 # Multiple Rabbit for Spring Boot Starter
-# Copyright (c) 2020 Unikue Ltd. All rights reserved.
-# https://unikue.cn
+# Copyright (c) 2020 Jiovan Ltd. All rights reserved.
+# https://jiovan.com
 
-cn.unikue.springstarter.multiplerabbit.config.EnableRabbitAutoConfiguration
-cn.unikue.springstarter.multiplerabbit.config.PrimaryRabbitAutoConfiguration
-cn.unikue.springstarter.multiplerabbit.config.PrimaryRabbitAnnotationDrivenConfiguration
-cn.unikue.springstarter.multiplerabbit.config.SecondaryRabbitAutoConfiguration
-cn.unikue.springstarter.multiplerabbit.config.SecondaryRabbitAnnotationDrivenConfiguration
-cn.unikue.springstarter.multiplerabbit.config.TertiaryRabbitAutoConfiguration
-cn.unikue.springstarter.multiplerabbit.config.TertiaryRabbitAnnotationDrivenConfiguration
+com.jiovan.spring.starter.multiplerabbit.config.EnableRabbitAutoConfiguration
+com.jiovan.spring.starter.multiplerabbit.config.PrimaryRabbitAutoConfiguration
+com.jiovan.spring.starter.multiplerabbit.config.PrimaryRabbitAnnotationDrivenConfiguration
+com.jiovan.spring.starter.multiplerabbit.config.SecondaryRabbitAutoConfiguration
+com.jiovan.spring.starter.multiplerabbit.config.SecondaryRabbitAnnotationDrivenConfiguration
+com.jiovan.spring.starter.multiplerabbit.config.TertiaryRabbitAutoConfiguration
+com.jiovan.spring.starter.multiplerabbit.config.TertiaryRabbitAnnotationDrivenConfiguration

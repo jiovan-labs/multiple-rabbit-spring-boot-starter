@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Unikue Ltd. All rights reserved.
+ * Copyright (c) 2020 Jiovan Ltd. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.unikue.springstarter.multiplerabbit.util;
+package com.jiovan.spring.starter.multiplerabbit.util;
 
 
 import java.util.LinkedHashMap;
@@ -24,14 +24,15 @@ import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.CustomExchange;
-import cn.unikue.springstarter.multiplerabbit.constant.CustomExchangeConst;
-import cn.unikue.springstarter.multiplerabbit.enumeration.RabbitExchangeType;
+import com.jiovan.spring.starter.multiplerabbit.constant.CustomExchangeConst;
+import com.jiovan.spring.starter.multiplerabbit.enumeration.RabbitExchangeType;
 
 
 /**
  * Utilities for {@link org.springframework.amqp.core.CustomExchange}
  *
  * @author David Hsing
+ *
  * @see org.springframework.amqp.core.CustomExchange
  */
 @SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted", "UnusedReturnValue"})
@@ -47,10 +48,9 @@ public abstract class CustomExchangeUtils {
      *
      * @return a delayed message exchange with the rabbit plugin of "rabbitmq-delayed-message-exchange"
      *
-     * @reference "https://github.com/rabbitmq/rabbitmq-delayed-message-exchange"
+     * @see "https://github.com/rabbitmq/rabbitmq-delayed-message-exchange"
      */
     @Nullable
-    @SuppressWarnings({"JavadocDeclaration", "JavadocLinkAsPlainText"})
     public static CustomExchange delayedMessageExchange(@Nonnull AmqpAdmin admin, @Nonnull String name, @Nullable RabbitExchangeType type, boolean durable, boolean autoDelete) {
         if (StringUtils.isBlank(name)) {
             return null;

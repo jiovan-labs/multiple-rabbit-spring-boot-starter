@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Unikue Ltd. All rights reserved.
+ * Copyright (c) 2020 Jiovan Ltd. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,33 @@
  * limitations under the License.
  */
 
-package cn.unikue.springstarter.multiplerabbit.config;
+package com.jiovan.spring.starter.multiplerabbit.config;
 
 
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.amqp.autoconfigure.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import com.rabbitmq.client.Channel;
-import cn.unikue.commonplexus.springcondition.annotation.ConditionalOnAnyProperties;
+import com.jiovan.plexus.spring.condition.annotation.ConditionalOnAnyProperties;
 
 
 /**
  * Configuration for {@link org.springframework.amqp.rabbit.annotation.EnableRabbit}
  *
  * @author David Hsing
+ *
  * @see org.springframework.amqp.rabbit.annotation.EnableRabbit
  * @see org.springframework.amqp.rabbit.annotation.MultiRabbitBootstrapConfiguration
  * @see org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnBooleanProperty(prefix = "spring.multiple-rabbit", name = "enabled", matchIfMissing = true)
+@ConditionalOnBooleanProperty(prefix = "jiovan.multiple-rabbit", name = "enabled", matchIfMissing = true)
 @ConditionalOnAnyProperties(value = {
     @ConditionalOnProperty(prefix = PrimaryRabbitAutoConfiguration.PROPERTIES_PREFIX, name = "host"),
     @ConditionalOnProperty(prefix = SecondaryRabbitAutoConfiguration.PROPERTIES_PREFIX, name = "host"),

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Unikue Ltd. All rights reserved.
+ * Copyright (c) 2020 Jiovan Ltd. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.unikue.springstarter.multiplerabbit.config;
+package com.jiovan.spring.starter.multiplerabbit.config;
 
 
 import jakarta.annotation.Nonnull;
@@ -33,15 +33,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.amqp.CachingConnectionFactoryConfigurer;
-import org.springframework.boot.autoconfigure.amqp.ConnectionFactoryCustomizer;
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
-import org.springframework.boot.autoconfigure.amqp.RabbitConfigurationUtils;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionFactoryBeanConfigurer;
-import org.springframework.boot.autoconfigure.amqp.RabbitRetryTemplateCustomizer;
-import org.springframework.boot.autoconfigure.amqp.RabbitTemplateConfigurer;
-import org.springframework.boot.autoconfigure.amqp.RabbitTemplateCustomizer;
+import org.springframework.boot.amqp.autoconfigure.CachingConnectionFactoryConfigurer;
+import org.springframework.boot.amqp.autoconfigure.ConnectionFactoryCustomizer;
+import org.springframework.boot.amqp.autoconfigure.RabbitAutoConfiguration;
+import org.springframework.boot.amqp.autoconfigure.RabbitConfigurationUtils;
+import org.springframework.boot.amqp.autoconfigure.RabbitConnectionDetails;
+import org.springframework.boot.amqp.autoconfigure.RabbitConnectionFactoryBeanConfigurer;
+import org.springframework.boot.amqp.autoconfigure.RabbitTemplateRetrySettingsCustomizer;
+import org.springframework.boot.amqp.autoconfigure.RabbitTemplateConfigurer;
+import org.springframework.boot.amqp.autoconfigure.RabbitTemplateCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -55,43 +55,48 @@ import org.springframework.core.io.ResourceLoader;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.impl.CredentialsProvider;
 import com.rabbitmq.client.impl.CredentialsRefreshService;
-import cn.unikue.springstarter.multiplerabbit.property.MultipleRabbitProperties;
-import cn.unikue.springstarter.multiplerabbit.util.CustomExchangeUtils;
+import com.jiovan.spring.starter.multiplerabbit.property.MultipleRabbitProperties;
+import com.jiovan.spring.starter.multiplerabbit.util.CustomExchangeUtils;
 import lombok.NonNull;
 
 
 /**
- * Secondary configuration for rabbit
+ * Tertiary configuration for rabbit
  *
  * @author David Hsing
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnBooleanProperty(prefix = "spring.multiple-rabbit", name = "enabled", matchIfMissing = true)
-@ConditionalOnProperty(prefix = SecondaryRabbitAutoConfiguration.PROPERTIES_PREFIX, name = "host")
+@ConditionalOnBooleanProperty(prefix = "jiovan.multiple-rabbit", name = "enabled", matchIfMissing = true)
+@ConditionalOnProperty(prefix = TertiaryRabbitAutoConfiguration.PROPERTIES_PREFIX, name = "host")
 @ConditionalOnClass(value = {RabbitTemplate.class, Channel.class})
-@AutoConfigureAfter(value = PrimaryRabbitAutoConfiguration.class)
+@AutoConfigureAfter(value = SecondaryRabbitAutoConfiguration.class)
 @AutoConfigureBefore(value = RabbitAutoConfiguration.class)
-public class SecondaryRabbitAutoConfiguration {
-    public static final String PROPERTIES_PREFIX = "spring.multiple-rabbit.secondary";    // $NON-NLS-1$
-    public static final String RABBIT_PROPERTIES = "secondaryRabbitProperties";    // $NON-NLS-1$
-    public static final String CONNECTION_DETAILS = "secondaryRabbitConnectionDetails";    // $NON-NLS-1$
-    public static final String CREDENTIALS_PROVIDER = "secondaryRabbitCredentialsProvider";    // $NON-NLS-1$
-    public static final String CREDENTIALS_REFRESH_SERVICE = "secondaryRabbitCredentialsRefreshService";    // $NON-NLS-1$   // $NON-NLS-1$
-    public static final String SSL_BUNDLES = "secondaryRabbitSslBundles";    // $NON-NLS-1$
-    public static final String CONNECTION_FACTORY_BEAN_CONFIGURER = "secondaryRabbitConnectionFactoryBeanConfigurer";
-    public static final String CONNECTION_NAME_STRATEGY = "secondaryRabbitConnectionNameStrategy";    // $NON-NLS-1$
-    public static final String CACHING_CONNECTION_FACTORY_CONFIGURER = "secondaryRabbitCachingConnectionFactoryConfigurer";    // $NON-NLS-1$
-    public static final String CONNECTION_FACTORY_CUSTOMIZER = "secondaryRabbitConnectionFactoryCustomizer";    // $NON-NLS-1$
-    public static final String CONNECTION_FACTORY = "secondaryRabbitConnectionFactory";    // $NON-NLS-1$
-    public static final String MESSAGE_CONVERTER = "secondaryRabbitMessageConverter";    // $NON-NLS-1$
-    public static final String RETRY_TEMPLATE_CUSTOMIZER = "secondaryRabbitRetryTemplateCustomizer";    // $NON-NLS-1$
-    public static final String RABBIT_TEMPLATE_CONFIGURER = "secondaryRabbitTemplateConfigurer";    // $NON-NLS-1$
+public class TertiaryRabbitAutoConfiguration {
+    public static final String PROPERTIES_PREFIX = "jiovan.multiple-rabbit.tertiary";    // $NON-NLS-1$
+    public static final String RABBIT_PROPERTIES = "tertiaryRabbitProperties";    // $NON-NLS-1$
+    public static final String CONNECTION_DETAILS = "tertiaryRabbitConnectionDetails";    // $NON-NLS-1$
+    public static final String CREDENTIALS_PROVIDER = "tertiaryRabbitCredentialsProvider";    // $NON-NLS-1$
+    public static final String CREDENTIALS_REFRESH_SERVICE = "tertiaryRabbitCredentialsRefreshService";    // $NON-NLS-1$   // $NON-NLS-1$
+    public static final String SSL_BUNDLES = "tertiaryRabbitSslBundles";    // $NON-NLS-1$
+    public static final String CONNECTION_FACTORY_BEAN_CONFIGURER = "tertiaryRabbitConnectionFactoryBeanConfigurer";
+    public static final String CONNECTION_NAME_STRATEGY = "tertiaryRabbitConnectionNameStrategy";    // $NON-NLS-1$
+    public static final String CACHING_CONNECTION_FACTORY_CONFIGURER = "tertiaryRabbitCachingConnectionFactoryConfigurer";    // $NON-NLS-1$
+    public static final String CONNECTION_FACTORY_CUSTOMIZER = "tertiaryRabbitConnectionFactoryCustomizer";    // $NON-NLS-1$
+    public static final String CONNECTION_FACTORY = "tertiaryRabbitConnectionFactory";    // $NON-NLS-1$
+    public static final String MESSAGE_CONVERTER = "tertiaryRabbitMessageConverter";    // $NON-NLS-1$
+    public static final String RETRY_TEMPLATE_CUSTOMIZER = "tertiaryRabbitRetryTemplateCustomizer";    // $NON-NLS-1$
+    public static final String RABBIT_TEMPLATE_CONFIGURER = "tertiaryRabbitTemplateConfigurer";    // $NON-NLS-1$
     public static final String RABBIT_TEMPLATE_CUSTOMIZER = "primaryRabbitTemplateCustomizer";    // $NON-NLS-1$
-    public static final String RABBIT_TEMPLATE = "secondaryRabbitTemplate";    // $NON-NLS-1$
-    public static final String RABBIT_MESSAGING_TEMPLATE = "secondaryRabbitMessagingTemplate";    // $NON-NLS-1$
-    public static final String AMQP_ADMIN = "secondaryRabbitAmqpAdmin";    // $NON-NLS-1$
-    public static final String DELAYED_EXCHANGE = "secondaryRabbitDelayedExchange";    // $NON-NLS-1$
+    public static final String RABBIT_TEMPLATE = "tertiaryRabbitTemplate";    // $NON-NLS-1$
+    public static final String RABBIT_MESSAGING_TEMPLATE = "tertiaryRabbitMessagingTemplate";    // $NON-NLS-1$
+    public static final String AMQP_ADMIN = "tertiaryRabbitAmqpAdmin";    // $NON-NLS-1$
+    public static final String DELAYED_EXCHANGE = "tertiaryRabbitDelayedExchange";    // $NON-NLS-1$
 
+    /**
+     * Returns a rabbit properties bean bound from the {@code PROPERTIES_PREFIX} configuration properties
+     *
+     * @return a rabbit properties bean bound from the {@code PROPERTIES_PREFIX} configuration properties
+     */
     @Bean(name = RABBIT_PROPERTIES)
     @ConditionalOnMissingBean(name = RABBIT_PROPERTIES)
     @ConfigurationProperties(prefix = PROPERTIES_PREFIX)
@@ -99,6 +104,14 @@ public class SecondaryRabbitAutoConfiguration {
         return new MultipleRabbitProperties();
     }
 
+    /**
+     * Returns rabbit connection details derived from the tertiary rabbit properties and SSL bundles
+     *
+     * @param properties the tertiary rabbit properties qualified by {@code RABBIT_PROPERTIES}
+     * @param bundles the tertiary SSL bundles qualified by {@code SSL_BUNDLES}, may be {@code null}
+     *
+     * @return rabbit connection details derived from the tertiary rabbit properties and SSL bundles
+     */
     @Bean(name = CONNECTION_DETAILS)
     @ConditionalOnBean(name = RABBIT_PROPERTIES)
     @ConditionalOnMissingBean(name = CONNECTION_DETAILS)
@@ -106,6 +119,18 @@ public class SecondaryRabbitAutoConfiguration {
         return RabbitConfigurationUtils.rabbitConnectionDetails(properties, bundles);
     }
 
+    /**
+     * Returns a configurer bean that builds the tertiary rabbit connection factory bean
+     *
+     * @param properties the tertiary rabbit properties qualified by {@code RABBIT_PROPERTIES}
+     * @param loader the resource loader used to resolve SSL material
+     * @param details the connection details qualified by {@code CONNECTION_DETAILS}, may be {@code null} to derive them from the properties
+     * @param credentials the credentials provider qualified by {@code CREDENTIALS_PROVIDER}, may be {@code null}
+     * @param refresh the credentials refresh service qualified by {@code CREDENTIALS_REFRESH_SERVICE}, may be {@code null}
+     * @param bundles the tertiary SSL bundles qualified by {@code SSL_BUNDLES}, may be {@code null}
+     *
+     * @return a configurer bean that builds the tertiary rabbit connection factory bean
+     */
     @Bean(name = CONNECTION_FACTORY_BEAN_CONFIGURER)
     @ConditionalOnBean(name = RABBIT_PROPERTIES)
     @ConditionalOnMissingBean(name = CONNECTION_FACTORY_BEAN_CONFIGURER)
@@ -117,6 +142,16 @@ public class SecondaryRabbitAutoConfiguration {
         return RabbitConfigurationUtils.rabbitConnectionFactoryBeanConfigurer(properties, loader, details, credentials, refresh, bundles);
     }
 
+    /**
+     * Returns a configurer bean that applies cache and connection settings to the tertiary caching connection factory
+     *
+     * @param properties the tertiary rabbit properties qualified by {@code RABBIT_PROPERTIES}
+     * @param details the connection details qualified by {@code CONNECTION_DETAILS}, may be {@code null} to derive them from the properties
+     * @param strategy the connection name strategy qualified by {@code CONNECTION_NAME_STRATEGY}, may be {@code null}
+     * @param bundles the tertiary SSL bundles qualified by {@code SSL_BUNDLES}, may be {@code null}
+     *
+     * @return a configurer bean that applies cache and connection settings to the tertiary caching connection factory
+     */
     @Bean(name = CACHING_CONNECTION_FACTORY_CONFIGURER)
     @ConditionalOnBean(name = RABBIT_PROPERTIES)
     @ConditionalOnMissingBean(name = CACHING_CONNECTION_FACTORY_CONFIGURER)
@@ -127,6 +162,18 @@ public class SecondaryRabbitAutoConfiguration {
         return RabbitConfigurationUtils.cachingConnectionFactoryConfigurer(properties, details, strategy, bundles);
     }
 
+    /**
+     * Returns a caching connection factory bean configured from the tertiary rabbit configurers
+     *
+     * @param properties the tertiary rabbit properties qualified by {@code RABBIT_PROPERTIES}
+     * @param rabbitConfigurer the connection factory bean configurer qualified by {@code CONNECTION_FACTORY_BEAN_CONFIGURER}
+     * @param cachingConfigurer the caching configurer qualified by {@code CACHING_CONNECTION_FACTORY_CONFIGURER}
+     * @param customizer the connection factory customizer qualified by {@code CONNECTION_FACTORY_CUSTOMIZER}, may be {@code null}
+     *
+     * @return a caching connection factory bean configured from the tertiary rabbit configurers
+     *
+     * @throws Exception if the connection factory cannot be created
+     */
     @Bean(name = CONNECTION_FACTORY)
     @ConditionalOnBean(name = RABBIT_PROPERTIES)
     @ConditionalOnMissingBean(name = CONNECTION_FACTORY)
@@ -137,15 +184,33 @@ public class SecondaryRabbitAutoConfiguration {
         return RabbitConfigurationUtils.cachingConnectionFactory(properties, rabbitConfigurer, cachingConfigurer, customizer);
     }
 
+    /**
+     * Returns a configurer bean that applies the tertiary rabbit properties to a rabbit template
+     *
+     * @param properties the tertiary rabbit properties qualified by {@code RABBIT_PROPERTIES}
+     * @param converter the message converter qualified by {@code MESSAGE_CONVERTER}, may be {@code null}
+     * @param customizer the retry template customizer qualified by {@code RETRY_TEMPLATE_CUSTOMIZER}, may be {@code null}
+     *
+     * @return a configurer bean that applies the tertiary rabbit properties to a rabbit template
+     */
     @Bean(name = RABBIT_TEMPLATE_CONFIGURER)
     @ConditionalOnBean(name = RABBIT_PROPERTIES)
     @ConditionalOnMissingBean(name = RABBIT_TEMPLATE_CONFIGURER)
     public RabbitTemplateConfigurer rabbitTemplateConfigurer(@Qualifier(value = RABBIT_PROPERTIES) @NonNull MultipleRabbitProperties properties,
         @Autowired(required = false) @Qualifier(value = MESSAGE_CONVERTER) @Nullable MessageConverter converter,
-        @Autowired(required = false) @Qualifier(value = RETRY_TEMPLATE_CUSTOMIZER) @Nullable RabbitRetryTemplateCustomizer customizer) {
+        @Autowired(required = false) @Qualifier(value = RETRY_TEMPLATE_CUSTOMIZER) @Nullable RabbitTemplateRetrySettingsCustomizer customizer) {
         return RabbitConfigurationUtils.rabbitTemplateConfigurer(properties, converter, customizer);
     }
 
+    /**
+     * Returns a rabbit template bean configured with the tertiary configurer and connection factory
+     *
+     * @param configurer the rabbit template configurer qualified by {@code RABBIT_TEMPLATE_CONFIGURER}
+     * @param factory the tertiary connection factory qualified by {@code CONNECTION_FACTORY}
+     * @param customizer the rabbit template customizer qualified by {@code RABBIT_TEMPLATE_CUSTOMIZER}
+     *
+     * @return a rabbit template bean configured with the tertiary configurer and connection factory
+     */
     @Bean(name = RABBIT_TEMPLATE)
     @ConditionalOnBean(name = {RABBIT_TEMPLATE_CONFIGURER, CONNECTION_FACTORY})
     @ConditionalOnMissingBean(name = RABBIT_TEMPLATE)
@@ -155,6 +220,13 @@ public class SecondaryRabbitAutoConfiguration {
         return RabbitConfigurationUtils.rabbitTemplate(configurer, factory, customizer);
     }
 
+    /**
+     * Returns a rabbit messaging template bean backed by the tertiary rabbit template
+     *
+     * @param template the tertiary rabbit template qualified by {@code RABBIT_TEMPLATE}
+     *
+     * @return a rabbit messaging template bean backed by the tertiary rabbit template
+     */
     @Bean(name = RABBIT_MESSAGING_TEMPLATE)
     @ConditionalOnBean(name = RABBIT_TEMPLATE, value = RabbitTemplate.class)
     @ConditionalOnMissingBean(name = RABBIT_MESSAGING_TEMPLATE)
@@ -162,6 +234,13 @@ public class SecondaryRabbitAutoConfiguration {
         return new RabbitMessagingTemplate(template);
     }
 
+    /**
+     * Returns an AMQP admin bean that manages broker resources on the tertiary connection factory
+     *
+     * @param factory the tertiary connection factory qualified by {@code CONNECTION_FACTORY}
+     *
+     * @return an AMQP admin bean that manages broker resources on the tertiary connection factory
+     */
     @Bean(name = AMQP_ADMIN)
     @ConditionalOnProperty(prefix = PROPERTIES_PREFIX, name = "dynamic", matchIfMissing = true)
     @ConditionalOnBean(name = CONNECTION_FACTORY)
@@ -170,6 +249,14 @@ public class SecondaryRabbitAutoConfiguration {
         return new RabbitAdmin(factory);
     }
 
+    /**
+     * Returns a delayed message exchange bean declared from the tertiary delayed exchange settings
+     *
+     * @param amqpAdmin the AMQP admin qualified by {@code AMQP_ADMIN} used to declare the exchange
+     * @param properties the tertiary rabbit properties qualified by {@code RABBIT_PROPERTIES} holding the delayed exchange settings
+     *
+     * @return a delayed message exchange bean declared from the tertiary delayed exchange settings
+     */
     @Bean(name = DELAYED_EXCHANGE)
     @ConditionalOnBooleanProperty(prefix = PROPERTIES_PREFIX + ".delayed-exchange", name = "enabled", matchIfMissing = true)
     @ConditionalOnProperty(prefix = PROPERTIES_PREFIX + ".delayed-exchange", name = "name")

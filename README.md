@@ -8,18 +8,18 @@ Spring Boot application integrates multiple `RabbitMQ` quickly.
 
 ```xml
     <dependency>
-        <groupId>cn.unikue.springstarter</groupId>
+        <groupId>com.jiovan.spring.starter</groupId>
         <artifactId>multiple-rabbit-spring-boot-starter</artifactId>
         <version>LATEST</version>
     </dependency>
 ```
 
-> By default, this starter will auto take effect, you can turn it off by `spring.multiple-rabbit.enabled = false`
+> By default, this starter will auto take effect, you can turn it off by `jiovan.multiple-rabbit.enabled = false`
 
-- Configure Spring Boot `application.yml` with prefix `spring.multiple-rabbit`
+- Configure Spring Boot `application.yml` with prefix `jiovan.multiple-rabbit`
 
 ```yml
-spring:
+jiovan:
     multiple-rabbit:
         primary:
             host: '192.168.0.1'
@@ -55,7 +55,7 @@ rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 
 ## Document
 
-- Github: https://github.com/unikueltd/multiple-rabbit-spring-boot-starter
+- Github: https://github.com/jiovan-labs/multiple-rabbit-spring-boot-starter
 - RabbitMQ github: https://github.com/rabbitmq/rabbitmq-java-client
 - RabbitMQ homepage: https://rabbitmq.com
 
@@ -71,12 +71,12 @@ See the `NOTICE.txt` file for required notices and attributions.
 
 ## Donation
 
-You like this package? Then [donate to us](https://unikue.cn/donation) to support the development.
+You like this package? Then [donate to us](https://jiovan.com/donation) to support the development.
 
 ## Copyright
 
-Beijing Unikue Network Technology Ltd.
+Beijing Jiovan Technology Ltd.
 
 ## Website
 
-- Unikue: https://unikue.cn
+- Jiovan: https://jiovan.com

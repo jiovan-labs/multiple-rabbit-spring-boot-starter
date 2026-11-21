@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Unikue Ltd. All rights reserved.
+ * Copyright (c) 2020 Jiovan Ltd. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cn.unikue.springstarter.multiplerabbit.property;
+package com.jiovan.spring.starter.multiplerabbit.property;
 
 
 import java.io.Serializable;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
-import cn.unikue.springstarter.multiplerabbit.enumeration.RabbitExchangeType;
+import org.springframework.boot.amqp.autoconfigure.RabbitProperties;
+import com.jiovan.spring.starter.multiplerabbit.enumeration.RabbitExchangeType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
